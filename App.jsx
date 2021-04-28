@@ -11,20 +11,22 @@ export default function App() {
   const [current, setCurrent] = useState(0);
 
   addDigit = n => {
-    if (n === '.' && displayValue.includes('.'))
+    const clearDisplayValue = (displayValue === '0' || clearDisplay);
+
+    if (n === '.' && !clearDisplayValue && displayValue.includes('.'))
       return
 
-    const currentValue = (displayValue === '0' || clearDisplay) ? '' : displayValue
+    const currentValue = clearDisplayValue ? '' : displayValue;
     const newDisplayValue = currentValue + n;
-    setDisplayValue(newDisplayValue)
+    setDisplayValue(newDisplayValue);
 
-    setClearDisplay(false)
+    setClearDisplay(false);
 
     if (n !== '.') {
-      const newValue = parseFloat(newDisplayValue)
-      const valuesCopy = [...values]
-      valuesCopy[current] = newValue
-      setValues(valuesCopy)
+      const newValue = parseFloat(newDisplayValue);
+      const valuesCopy = [...values];
+      valuesCopy[current] = newValue;
+      setValues(valuesCopy);
     }
   }
 
@@ -52,7 +54,7 @@ export default function App() {
       }
 
       valuesCopy[1] = 0
-      setDisplayValue(valuesCopy[0])
+      setDisplayValue(String(valuesCopy[0]))
       setOperation(equals ? null : op)
       setCurrent(equals ? 0 : 1)
       setClearDisplay(!equals)
